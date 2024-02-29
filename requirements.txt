@@ -1,0 +1,4 @@
+# enable virtual env: source bin/activate (mac)
+django
+pillow
+whitenoise
