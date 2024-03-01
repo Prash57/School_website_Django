@@ -13,6 +13,89 @@ def home(request):
         context = {'home_content': home_content}
     return render (request, 'index.html', context)
 
+# add school setup
+def addSchool(request):
+    school = SchoolSetup.objects.all()
+    form = SchoolSetupForm()
+    if request.method == 'POST':
+        form = SchoolSetupForm(request.POST, request.FILES)
+        if form.is_valid():
+            school = form.save(commit=False)
+            school.save()
+
+            messages.success(request, 'School setup saved successfully')
+            return redirect('home')
+    context ={'form': form, 'school': school}
+    return render (request, 'base/schoolform.html', context)
+
+# edit school setup
+def editSchool(request, pk):
+    school = SchoolSetup.objects.get(id=pk)
+    form = SchoolSetupForm(instance=school)
+    if request.method == 'POST':
+        form = SchoolSetupForm(request.POST, request.FILES, instance=school)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'School setup updated successfully')
+            return redirect('home')
+    context ={'form': form}
+    return render (request, 'base/schoolform.html', context)
+
+
+# delete school setup
+def deleteSchool(request, pk):
+    school = SchoolSetup.objects.get(id=pk)
+    if request.method == 'POST':
+        school.delete()
+
+        messages.success(request, 'School setup deleted successfully')
+        return redirect('home')
+    context ={'obj': school}
+    return render (request, 'delete.html', context)
+
+
+# add social content
+def addSocial(request):
+    social = Socials.objects.all()
+    form = SocialsForm()
+    if request.method == 'POST':
+        form = SocialsForm(request.POST)
+        if form.is_valid():
+            social = form.save(commit=False)
+            social.save()
+
+            messages.success(request, 'Socials added successfully')
+            return redirect('home')
+    context = {'social': social, 'form': form}
+    return render(request, 'base/socialform.html', context)
+
+# edit social content
+def editSocial(request, pk):
+    social = Socials.objects.get(id=pk)
+    form = SocialsForm(instance=social)
+    if request.method == 'POST':
+        form = SocialsForm(request.POST, instance=social)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Socials updated successfully')
+            return redirect('home')
+    context = {'form': form}
+    return render(request, 'base/socialform.html', context)
+
+# delete social content
+def deleteSocial(request, pk):
+    social = Socials.objects.get(id=pk)
+    if request.method == 'POST':
+        social.delete()
+
+        messages.success(request, 'Socials deleted successfully')
+        return redirect('home')
+    context ={'obj': social}
+    return render (request, 'delete.html', context)
+
+
 # add home content 
 def addHomeContent(request):
     home_content = HomeContent.objects.all()
@@ -26,7 +109,7 @@ def addHomeContent(request):
             messages.success(request, 'Home content saved successfully')
             return redirect('home')
     context ={'form': form, 'home_content': home_content}
-    return render (request, 'addhomecontent.html', context)
+    return render (request, 'base/homecontentform.html', context)
 
 # edit home content 
 def editHomeContent(request,pk):
@@ -43,7 +126,7 @@ def editHomeContent(request,pk):
         
 
     context = {'form': form}
-    return render(request, 'addhomecontent.html', context)
+    return render(request, 'base/homecontentform.html', context)
 
 # delete home content
 def deleteHomeContent(request,pk):
@@ -239,6 +322,47 @@ def blogs(request):
     context = {'blogs':blogs}
     return render (request, 'blogs.html', context)
 
+# add blog
+def addBlog(request):
+    blog = Blog.objects.all()
+    form = BlogForm()
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.save()
+
+            messages.success(request, 'Blog added successfully')
+            return redirect('blogs')
+    context = {'blog': blog, 'form': form}
+    return render(request, 'base/blogform.html', context)
+
+
+# edit blog
+def editBlog(request, pk):
+    blog = Blog.objects.get(id=pk)
+    form = BlogForm(instance=blog)
+    if request.method == 'POST':
+        form = BlogForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Blog updated successfully')
+            return redirect('blogs')
+    context = {'form': form}
+    return render(request, 'base/blogform.html', context)
+
+# delete blog
+def deleteBlog(request, pk):
+    blog = Blog.objects.get(id=pk)
+    if request.method == 'POST':
+        blog.delete()
+
+        messages.success(request, 'Blog deleted successfully')
+        return redirect('blogs')
+    context = {'obj': blog}
+    return render(request, 'delete.html', context)
+
 # blogs detail page
 def blogDetail(request, pk):
     blogsobj = Blog.objects.get(id=pk)
@@ -250,6 +374,47 @@ def gallery(request):
     photos = Gallery.objects.all()
     context ={'photos': photos}
     return render (request, 'gallery.html', context)
+
+# add photo
+def addPhoto(request):
+    photo = Gallery.objects.all()
+    form = GalleryForm()
+    if request.method == 'POST':
+        form = GalleryForm(request.POST, request.FILES)
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.save()
+
+            messages.success(request, 'Photo added successfully')
+            return redirect('gallery')
+    context = {'photo': photo, 'form': form}
+    return render(request, 'base/photoform.html', context)
+
+# add photo
+def editPhoto(request, pk):
+    photo = Gallery.objects.get(id=pk)
+    form = GalleryForm(instance=photo)
+    if request.method == 'POST':
+        form = GalleryForm(request.POST, request.FILES, instance=photo)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Photo updated successfully')
+            return redirect('gallery')
+    context = {'form': form}
+    return render(request, 'base/photoform.html', context)
+
+# delete photo
+def deletePhoto(request, pk):
+    photo = Gallery.objects.get(id=pk)
+    if request.method == 'POST':
+        photo.delete()
+
+        messages.success(request, 'Photo deleted successfully')
+        return redirect('gallery')
+    context = {'obj': photo}
+    return render(request, 'base/photoform.html', context)
+
 
 # contact page
 def contact_form(request):
@@ -279,6 +444,46 @@ def carrers(request):
     context = {'vacancys': vacancys}
     return render(request, 'carrers.html', context)
 
+# add vacancy
+def addVacancy(request):
+    vacancy = Vacancy.objects.all()
+    form = VacancyForm()
+    if request.method == 'POST':
+        form = VacancyForm(request.POST, request.FILES)
+        if form.is_valid():
+            vacancy = form.save(commit=False)
+            vacancy.save()
+
+            messages.success(request, 'Vacancy added successfully')
+            return redirect('carrers')
+    context = {'vacancy': vacancy, 'form': form}
+    return render(request, 'base/vacancyform.html', context)
+
+# edit vacancy
+def editVacancy(request, pk):
+    vacancy = Vacancy.objects.get(id=pk)
+    form = VacancyForm(instance=vacancy)
+    if request.method == 'POST':
+        form = VacancyForm(request.POST, request.FILES, instance=vacancy)
+        if form.is_valid():
+            form.save()
+ 
+            messages.success(request, 'Vacancy updated successfully')
+            return redirect('carrers')
+    context = {'form': form}
+    return render(request, 'base/vacancyform.html', context)
+
+# delete vacancy
+def deleteVacancy(request, pk):
+    vacancy = Vacancy.objects.get(id=pk)
+    if request.method == 'POST':
+        vacancy.delete()
+
+        messages.success(request, 'Vacancy deleted successfully')
+        return redirect('carrers')
+    context = {'obj': vacancy}
+    return render (request, 'delete.html', context)
+
 # carrers/vacancy detail page
 def carrersDetail(request, pk):
     vacancy = Vacancy.objects.get(id=pk)
@@ -290,3 +495,137 @@ def notice(request):
     notices = Notice.objects.all()
     context = {'notices': notices}
     return render(request, 'notice.html', context)
+
+# add notice
+def addNotice(request):
+    notice = Notice.objects.all()
+    form = NoticeForm()
+    if request.method == 'POST':
+        form = NoticeForm(request.POST, request.FILES)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.save()
+
+            messages.success(request, 'Notice added successfully')
+            return redirect('notice')
+    context = {'notice': notice, 'form': form}
+    return render(request, 'base/noticeform.html', context)
+
+# edit notice
+def editNotice(request, pk):
+    notice = Notice.objects.get(id=pk)
+    form = NoticeForm(instance=notice)
+    if request.method == 'POST':
+        form = NoticeForm(request.POST, request.FILES, instance=notice)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Notice updated successfully')
+            return redirect('notice')
+    context = {'form': form}
+    return render(request, 'base/noticeform.html', context)
+
+
+# delete notice
+def deleteNotice(request, pk):
+    notice = NoticeForm.objects.get(id=pk)
+    if request.method == 'POST':
+        notice.delete()
+        
+        messages.success(request, 'Notice deleted successfully')
+        return redirect('home')
+    context = {'obj': notice}
+    return render(request, 'delete.html', context)
+
+
+# add popup message
+def addPopupMessage(request):
+    popup = PopupMessage.objects.all()
+    form = PopupMessageForm()
+    if request.method == 'POST':
+        form = PopupMessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            popup = form.save(commit=False)
+            popup.save()
+
+            messages.success(request, 'Popup Message added successfully')
+            return redirect('home') 
+
+    context = {'popup': popup, 'form': form}
+    return render (request, 'base/popupform.html', context)
+
+# edit popup message
+def editPopupMessage(request, pk):
+    popup = PopupMessage.objects.get(id=pk)
+    form = PopupMessageForm(instace=popup)
+    if request.method == 'POST':
+        form = PopupMessageForm(request.POST, request.FILES, instance=popup)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Popup Message updated successfully')
+            return redirect('home') 
+
+    context = {'form': form}
+    return render (request, 'base/popupform.html', context)
+
+
+# delete popup message
+def deletePopupMessage(request, pk):
+    popup = PopupMessage.objects.get(id=pk)
+    if request.method == 'POST':
+        popup.delete()
+
+        messages.success(request, 'Popup Message deleted successfully')
+        return redirect('home')
+    context = {'obj': popup}
+    return render (request, 'delete.html', context)
+
+# add faqs
+def addFaq(request):
+    ...
+
+# edit faq
+def editFaq(request, pk):
+    ...
+
+# delete faq
+def deleteFaq(request, pk):
+    ...
+
+# add course
+def addCourse(request):
+    ...
+
+# edit course
+def editCourse(request, pk):
+    ...
+
+# delete course
+def deleteCourse(request, pk):
+    ...
+
+# add testimonial
+def addTestimonial(request):
+    ...
+
+# edit testimonial
+def editTestimonial(request, pk):
+    ...
+
+# delete testimonial
+def deleteTestimonial(request, pk):
+    ...
+
+# add team member
+def addTeamMember(request):
+    ...
+
+# edit team member
+def editTeamMember(request, pk):
+    ...
+
+# delete team member
+def deleteTeamMember(request, pk):
+    ...
+
