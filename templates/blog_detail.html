@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<div class="container-xxl bg-white p-0">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <h2>{{blog.title}}</h2>
+                <p class="lead">{{blog.sub_title}}</p>
+                <div>
+                    <p><b>Author: {{blog.author}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Date: {{blog.created_at}}</span></p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-5">
+                <img src="{{blog.image.url}}" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="lead">{{blog.content}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
