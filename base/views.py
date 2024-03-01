@@ -13,6 +13,49 @@ def home(request):
         context = {'home_content': home_content}
     return render (request, 'index.html', context)
 
+# add home content 
+def addHomeContent(request):
+    home_content = HomeContent.objects.all()
+    form = HomeContentForm()
+    if request.method == 'POST':
+        form = HomeContentForm(request.POST, request.FILES)
+        if form.is_valid():
+            home_content = form.save(commit=False)
+            home_content.save()
+
+            messages.success(request, 'Home content saved successfully')
+            return redirect('home')
+    context ={'form': form, 'home_content': home_content}
+    return render (request, 'addhomecontent.html', context)
+
+# edit home content 
+def editHomeContent(request,pk):
+    home_content = HomeContent.objects.get(id=pk)
+    form = HomeContentForm(instance=home_content)
+
+    if request.method == 'POST':
+        form = HomeContentForm(request.POST, request.FILES, instance=home_content)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Home content updated successfully')
+            return redirect('home')
+        
+
+    context = {'form': form}
+    return render(request, 'addhomecontent.html', context)
+
+# delete home content
+def deleteHomeContent(request,pk):
+    home_content = HomeContent.objects.get(id=pk)
+    if request.method == 'POST':
+        home_content.delete()
+        
+        messages.success(request, 'Home content deleted successfully')
+        return redirect('home')
+    context = {'obj': home_content}
+    return render(request, 'delete.html', context)
+
 # about page
 def about(request):
     context = {}
