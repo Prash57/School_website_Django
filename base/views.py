@@ -746,7 +746,7 @@ def addTestimonial(request):
     testimonial = Testimonial.objects.all()
     form = TestimonialForm()
     if request.method =='POST':
-        testimonial = TestimonialForm(request.POST, request.FILES)
+        form = TestimonialForm(request.POST, request.FILES)
         if form.is_valid():
             testimonial = form.save(commit=False)
             testimonial.save()
@@ -762,7 +762,7 @@ def editTestimonial(request, pk):
     testimonial = Testimonial.objects.get(id=pk)
     form = TestimonialForm(instance=testimonial)
     if request.method =='POST':
-        testimonial = TestimonialForm(request.POST, request.FILES, instance=testimonial)
+        form = TestimonialForm(request.POST, request.FILES, instance=testimonial)
         if form.is_valid():
             form.save()
 
@@ -791,43 +791,43 @@ def viewTeamMembers(request):
 
 # add team member
 def addTeamMember(request):
-    team = TeamMember.objects.all()
+    teams = TeamMember.objects.all()
     form = TeamMemberForm()
     if request.method =='POST':
-        team = TeamMemberForm(request.POST, request.FILES)
+        form = TeamMemberForm(request.POST, request.FILES)
         if form.is_valid():
-            team = form.save(commit=False)
-            team.save()
+            teams = form.save(commit=False)
+            teams.save()
 
             messages.success(request, 'Team Member added successfully')
-            return redirect('about')
-    context = {'team': team,'form': form}
+            return redirect('viewteammembers')
+    context = {'teams': teams, 'form': form}
     return render (request, 'base/teammemberform.html', context)
 
 
 # edit team member
 def editTeamMember(request, pk):
-    team = TeamMember.objects.get(id=pk)
-    form = TeamMemberForm(instance=team)
+    teams = TeamMember.objects.get(id=pk)
+    form = TeamMemberForm(instance=teams)
     if request.method =='POST':
-        team = TeamMemberForm(request.POST, request.FILES, instance=team)
+        form = TeamMemberForm(request.POST, request.FILES, instance=teams)
         if form.is_valid():
             form.save()
 
             messages.success(request, 'Team Member updated successfully')
-            return redirect('about')
+            return redirect('viewteammembers')
     context = {'form': form}
     return render (request, 'base/teammemberform.html', context)
 
 # delete team member
 def deleteTeamMember(request, pk):
-    team = TeamMember.objects.get(id=pk)
+    teams = TeamMember.objects.get(id=pk)
     if request.method == 'POST':
-        team.delete()
+        teams.delete()
 
         messages.success(request, 'Team Member was deleted successfully')
         return redirect('about')
-    context= {'obj': team}
+    context= {'obj': teams}
     return render (request, 'delete.html', context)
 
 

@@ -50,7 +50,7 @@ def message_data(request):
 def team_data(request):
     team = TeamMember.objects.all()
     return {'tdata': team}
-
+ 
 def faq(request):
     faq = Faqs.objects.all()
     return {'fdata': faq}
