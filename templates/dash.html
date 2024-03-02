@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .offcanvas {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 250px; /* Width of the sidebar */
+        padding: 20px; /* Optional padding for content */
+        background-color: red; /* Background color */
+        border-right: 1px solid #dee2e6; /* Border on the right side */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    .main-content {
+        margin-left: 250px; /* Width of the sidebar */
+        padding: 20px; /* Optional padding for content */
+    }
+</style>
+
+<div class="offcanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Side Canvas</h5>
+    </div>
+    <div class="offcanvas-body">
+        <p>This is the content of the side canvas.</p>
+        <p>You can add any content here.</p>
+    </div>
+</div>
+
+<div class="main-content">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Navbar</span>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- Your main content here -->
+        <p>Main content goes here...</p>
+    </div>
+</div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html> -->
+
+{% endblock %}

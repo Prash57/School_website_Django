@@ -5,6 +5,11 @@ from .forms import *
 from django.contrib import messages
 
 # Create your views here.
+
+def dashboard(request):
+    context = {}
+    return render(request, 'dashboard.html', context)
+
 # homepage
 def home(request):
     context = {}
@@ -12,6 +17,11 @@ def home(request):
         home_content = HomeContent.objects.filter()[:1].get()
         context = {'home_content': home_content}
     return render (request, 'index.html', context)
+
+# view school setup data
+def viewSchool(request):
+    context = {}
+    return render(request, 'base/viewschool.html', context)
 
 # add school setup
 def addSchool(request):
@@ -54,6 +64,9 @@ def deleteSchool(request, pk):
     context ={'obj': school}
     return render (request, 'delete.html', context)
 
+def viewSocials(request):
+    context = {}
+    return render(request, 'base/viewsocials.html', context)
 
 # add social content
 def addSocial(request):
@@ -95,6 +108,12 @@ def deleteSocial(request, pk):
     context ={'obj': social}
     return render (request, 'delete.html', context)
 
+def viewHomeContent(request):
+    context = {}
+    if HomeContent.objects.all().exists():
+        home_content = HomeContent.objects.filter()[:1].get()
+        context = {'home_content': home_content}
+    return render(request, 'base/viewhomecontent.html', context)
 
 # add home content 
 def addHomeContent(request):
@@ -138,6 +157,10 @@ def deleteHomeContent(request,pk):
         return redirect('home')
     context = {'obj': home_content}
     return render(request, 'delete.html', context)
+
+def viewAbout(request):
+    context = {}
+    return render(request, 'base/viewabout.html', context)
 
 # about page
 def about(request):
@@ -188,6 +211,9 @@ def deleteAbout(request,pk):
     context = {'obj': about}
     return render(request, 'delete.html', context)
 
+def viewVision(request):
+    context = {}
+    return render(request, 'base/viewvision.html', context)
 
 # add vision section
 def addVision(request):
@@ -231,6 +257,9 @@ def deleteVision(request,pk):
     return render(request, 'delete.html', context)
 
 
+def viewMission(request):
+    context = {}
+    return render(request, 'base/viewmission.html', context)
 
 # add mission section
 def addMission(request):
@@ -273,6 +302,9 @@ def deleteMission(request,pk):
     context = {'obj': mission}
     return render(request, 'delete.html', context)
 
+def viewMessageFrom(request):
+    context = {}
+    return render(request, 'base/viewmessagefrom.html', context)
 
 # add message from section
 def addMessageFrom(request):
@@ -315,6 +347,9 @@ def deleteMessageFrom(request,pk):
     context = {'obj': message}
     return render(request, 'delete.html', context)
 
+def viewBlogs(request):
+    context = {}
+    return render(request, 'base/viewblogs.html', context)
 
 # blogs page
 def blogs(request):

@@ -4,11 +4,13 @@ from . import views
 urlpatterns = [
     # home page routes
     path('', views.home, name='home'),
+    path('view-home-content/', views.viewHomeContent, name='viewhomecontent'),
     path('add-home-content/', views.addHomeContent, name='addhomecontent'),
     path('edit-home-content/<str:pk>', views.editHomeContent, name='edithomecontent'),
     path('delete-home-content/<str:pk>', views.deleteHomeContent, name='deletehomecontent'),
 
     # school setup routes
+    path('school-setup/', views.viewSchool, name='schoolsetup'),
     path('add-school-data/', views.addSchool, name='addschool'),
     path('edit-school-data/<str:pk>', views.editSchool, name='editschool'),
     path('delete-school-data/<str:pk>', views.deleteSchool, name='deleteschool'),
@@ -95,5 +97,8 @@ urlpatterns = [
     path('add-team-member/', views.addTeamMember, name='addteammember'),
     path('edit-team-member/<str:pk>', views.editTeamMember, name='editteammember'),
     path('delete-team-member/<str:pk>', views.deleteTeamMember, name='deleteteammember'),
+
+    # dashboard
+    path('dashboard/', views.dashboard, name='dashboard'),
 
 ]
