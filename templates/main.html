@@ -36,6 +36,16 @@
 </head>
 
 <body>
+    {% if messages %}
+
+    {% for message in messages %}
+    <div class="alert">
+        <p class="alert__message">{{ message }}</p>
+        <button class="alert__close">x</button>
+    </div>
+    {% endfor %}
+
+    {% endif %}
 
     {% include 'header.html'%}
     {% block content %}
@@ -54,5 +64,22 @@
 
 <!-- Template Javascript -->
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+    // Invoke Functions Call on Document Loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        hljs.highlightAll();
+    });
+
+
+    let alertWrapper = document.querySelector('.alert')
+    let alertClose = document.querySelector('.alert__close')
+
+    if (alertWrapper) {
+        alertClose.addEventListener('click', () =>
+            alertWrapper.style.display = 'none'
+        )
+    }
+
+</script>
 
 </html>
