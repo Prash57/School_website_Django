@@ -160,6 +160,9 @@ def deleteHomeContent(request,pk):
 
 def viewAbout(request):
     context = {}
+    if About.objects.all().exists():
+        about = About.objects.filter()[:1].get()
+        context = {'about': about}
     return render(request, 'base/viewabout.html', context)
 
 # about page
@@ -348,7 +351,8 @@ def deleteMessageFrom(request,pk):
     return render(request, 'delete.html', context)
 
 def viewBlogs(request):
-    context = {}
+    blogs = Blog.objects.all()
+    context = {'blogs':blogs}
     return render(request, 'base/viewblogs.html', context)
 
 # blogs page
@@ -368,7 +372,7 @@ def addBlog(request):
             blog.save()
 
             messages.success(request, 'Blog added successfully')
-            return redirect('blogs')
+            return redirect('viewblogs')
     context = {'blog': blog, 'form': form}
     return render(request, 'base/blogform.html', context)
 
@@ -404,6 +408,11 @@ def blogDetail(request, pk):
     context = {'blog': blogsobj}
     return render (request, 'blog_detail.html', context)
 
+def viewGallery(request):
+    photos = Gallery.objects.all()
+    context ={'photos': photos}
+    return render(request, 'base/viewgallery.html', context)
+
 # gallery page
 def gallery(request):
     photos = Gallery.objects.all()
@@ -421,7 +430,7 @@ def addPhoto(request):
             photo.save()
 
             messages.success(request, 'Photo added successfully')
-            return redirect('gallery')
+            return redirect('viewgallery')
     context = {'photo': photo, 'form': form}
     return render(request, 'base/photoform.html', context)
 
@@ -435,7 +444,7 @@ def editPhoto(request, pk):
             form.save()
 
             messages.success(request, 'Photo updated successfully')
-            return redirect('gallery')
+            return redirect('viewgallery')
     context = {'form': form}
     return render(request, 'base/photoform.html', context)
 
@@ -446,13 +455,13 @@ def deletePhoto(request, pk):
         photo.delete()
 
         messages.success(request, 'Photo deleted successfully')
-        return redirect('gallery')
+        return redirect('viewgallery')
     context = {'obj': photo}
-    return render(request, 'base/photoform.html', context)
+    return render(request, 'delete.html', context)
 
 
 # contact page
-def contact_form(request):
+def contactForm(request):
     contacts = Contact.objects.all()
     form = ContactForm()
     if request.method == 'POST':
@@ -468,10 +477,16 @@ def contact_form(request):
     return render(request, 'contact.html', context)
 
 # viewing contacted page
-def view_contacts(request):
+def viewContacts(request):
     contacts = Contact.objects.all()
     context= {'contacts': contacts}
     return render(request, 'view_contacts.html', context)
+
+# view carrers/vacancy page
+def viewCarrers(request):
+    vacancys = Vacancy.objects.all()
+    context = {'vacancys': vacancys}
+    return render(request, 'base/viewcarrers.html', context)
 
 # carrers/vacancy page
 def carrers(request):
@@ -490,7 +505,7 @@ def addVacancy(request):
             vacancy.save()
 
             messages.success(request, 'Vacancy added successfully')
-            return redirect('carrers')
+            return redirect('viewcarrers')
     context = {'vacancy': vacancy, 'form': form}
     return render(request, 'base/vacancyform.html', context)
 
@@ -525,6 +540,14 @@ def carrersDetail(request, pk):
     context = {'vacancy': vacancy}
     return render(request, 'carrers_detail.html', context)
 
+
+# view notice page
+def viewNotices(request):
+    notices = Notice.objects.all()
+    context = {'notices': notices}
+    return render(request, 'base/viewnotices.html', context)
+
+
 # notice page
 def notice(request):
     notices = Notice.objects.all()
@@ -542,7 +565,7 @@ def addNotice(request):
             notice.save()
 
             messages.success(request, 'Notice added successfully')
-            return redirect('notice')
+            return redirect('viewnotices')
     context = {'notice': notice, 'form': form}
     return render(request, 'base/noticeform.html', context)
 
@@ -556,7 +579,7 @@ def editNotice(request, pk):
             form.save()
 
             messages.success(request, 'Notice updated successfully')
-            return redirect('notice')
+            return redirect('viewnotices')
     context = {'form': form}
     return render(request, 'base/noticeform.html', context)
 
@@ -572,6 +595,10 @@ def deleteNotice(request, pk):
     context = {'obj': notice}
     return render(request, 'delete.html', context)
 
+# view popup message
+def viewPopupMessages(request):
+    context = {}
+    return render(request, 'base/viewpopupmessage.html', context)
 
 # add popup message
 def addPopupMessage(request):
@@ -592,7 +619,7 @@ def addPopupMessage(request):
 # edit popup message
 def editPopupMessage(request, pk):
     popup = PopupMessage.objects.get(id=pk)
-    form = PopupMessageForm(instace=popup)
+    form = PopupMessageForm(instance=popup)
     if request.method == 'POST':
         form = PopupMessageForm(request.POST, request.FILES, instance=popup)
         if form.is_valid():
@@ -615,6 +642,11 @@ def deletePopupMessage(request, pk):
         return redirect('home')
     context = {'obj': popup}
     return render (request, 'delete.html', context)
+
+# view faqs
+def viewFaqs(request):
+    context = {}
+    return render (request, 'base/viewfaqs.html', context)
 
 # add faqs
 def addFaq(request):
@@ -656,6 +688,11 @@ def deleteFaq(request, pk):
         return redirect('home')
     context= {'obj': faq}
     return render (request, 'delete.html', context)
+
+# view course
+def viewCourses(request):
+    context = {}
+    return render (request, 'base/viewcourses.html', context)
 
 # add course
 def addCourse(request):
@@ -699,6 +736,10 @@ def deleteCourse(request, pk):
     context= {'obj': course}
     return render (request, 'delete.html', context)
 
+# view testimonial
+def viewTestimonials(request):
+    context = {}
+    return render (request, 'base/viewtestimonial.html', context)
 
 # add testimonial
 def addTestimonial(request):
@@ -743,6 +784,10 @@ def deleteTestimonial(request, pk):
     context= {'obj': testimonial}
     return render (request, 'delete.html', context)
 
+# view team member
+def viewTeamMembers(request):
+    context = {}
+    return render (request, 'base/viewteam.html', context)
 
 # add team member
 def addTeamMember(request):

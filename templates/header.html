@@ -23,6 +23,8 @@
                     <a href="{% url 'blogs' %}" class="nav-item nav-link {% if url_name == 'blogs' %}active{% endif %}">Blogs</a>
                     <a href="{% url 'gallery' %}" class="nav-item nav-link {% if url_name == 'gallery' %}active{% endif %}">Gallery</a>
                     <a href="{% url 'contact' %}" class="nav-item nav-link {% if url_name == 'contact' %}active{% endif %}">Contact Us</a>
+                    <a href="{% url 'dashboard' %}" class="nav-item nav-link {% if url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+
                     {% endwith %}
                 </div>
                 <a href="http://127.0.0.1:8000/admin" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Login<i
