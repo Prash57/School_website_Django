@@ -583,49 +583,171 @@ def deletePopupMessage(request, pk):
 
 # add faqs
 def addFaq(request):
-    ...
+    faq = Faqs.objects.all()
+    form = FaqsForm()
+    if request.method =='POST':
+        form = FaqsForm(request.POST)
+        if form.is_valid():
+            faq = form.save(commit=False)
+            faq.save()
+
+            messages.success(request, 'Faq added successfully')
+            return redirect('home')
+    context = {'faq': faq, 'form': form}
+    return render (request, 'base/faqform.html', context)
+
 
 # edit faq
 def editFaq(request, pk):
-    ...
+    faq = Faqs.objects.get(id=pk)
+    form = FaqsForm(instance=faq)
+    if request.method == 'POST':
+        form = FaqsForm(request.POST, instance=faq)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Faq updated Successfully')
+            return redirect('home')
+    context = {'form': form}
+    return render (request, 'base/faqform.html', context)
 
 # delete faq
 def deleteFaq(request, pk):
-    ...
+    faq = Faqs.objects.get(id=pk)
+    if request.method == 'POST':
+        faq.delete()
+
+        messages.success(request, 'Faq was deleted successfully')
+        return redirect('home')
+    context= {'obj': faq}
+    return render (request, 'delete.html', context)
 
 # add course
 def addCourse(request):
-    ...
+    course = Courses.objects.all()
+    form = CoursesForm()
+    if request.method =='POST':
+        form = CoursesForm(request.POST, request.FILES)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.save()
+
+            messages.success(request, 'Faq added successfully')
+            return redirect('home')
+    context = {'course': course, 'form': form}
+    return render (request, 'base/courseform.html', context)
+
 
 # edit course
 def editCourse(request, pk):
-    ...
+    course = Courses.objects.get(id=pk)
+    form = CoursesForm(instance=course)
+    if request.method =='POST':
+        form = CoursesForm(request.POST, request.FILES, instance=course)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Faq updated successfully')
+            return redirect('home')
+    context = {'form': form}
+    return render (request, 'base/courseform.html', context)
+
 
 # delete course
 def deleteCourse(request, pk):
-    ...
+    course = Courses.objects.get(id=pk)
+    if request.method == 'POST':
+        course.delete()
+
+        messages.success(request, 'Course was deleted successfully')
+        return redirect('home')
+    context= {'obj': course}
+    return render (request, 'delete.html', context)
+
 
 # add testimonial
 def addTestimonial(request):
-    ...
+    testimonial = Testimonial.objects.all()
+    form = TestimonialForm()
+    if request.method =='POST':
+        testimonial = TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            testimonial = form.save(commit=False)
+            testimonial.save()
+
+            messages.success(request, 'Testemonial added successfully')
+            return redirect('home')
+    context = {'testimonial': testimonial, 'form': form}
+    return render (request, 'base/testimonialform.html', context)
+
 
 # edit testimonial
 def editTestimonial(request, pk):
-    ...
+    testimonial = Testimonial.objects.get(id=pk)
+    form = TestimonialForm(instance=testimonial)
+    if request.method =='POST':
+        testimonial = TestimonialForm(request.POST, request.FILES, instance=testimonial)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Testemonial added successfully')
+            return redirect('home')
+    context = {'form': form}
+    return render (request, 'base/testimonialform.html', context)
+
+
 
 # delete testimonial
 def deleteTestimonial(request, pk):
-    ...
+    testimonial = Testimonial.objects.get(id=pk)
+    if request.method == 'POST':
+        testimonial.delete()
+
+        messages.success(request, 'Testimonial was deleted successfully')
+        return redirect('home')
+    context= {'obj': testimonial}
+    return render (request, 'delete.html', context)
+
 
 # add team member
 def addTeamMember(request):
-    ...
+    team = TeamMember.objects.all()
+    form = TeamMemberForm()
+    if request.method =='POST':
+        team = TeamMemberForm(request.POST, request.FILES)
+        if form.is_valid():
+            team = form.save(commit=False)
+            team.save()
+
+            messages.success(request, 'Team Member added successfully')
+            return redirect('about')
+    context = {'team': team,'form': form}
+    return render (request, 'base/teammemberform.html', context)
+
 
 # edit team member
 def editTeamMember(request, pk):
-    ...
+    team = TeamMember.objects.get(id=pk)
+    form = TeamMemberForm(instance=team)
+    if request.method =='POST':
+        team = TeamMemberForm(request.POST, request.FILES, instance=team)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, 'Team Member updated successfully')
+            return redirect('about')
+    context = {'form': form}
+    return render (request, 'base/teammemberform.html', context)
 
 # delete team member
 def deleteTeamMember(request, pk):
-    ...
+    team = TeamMember.objects.get(id=pk)
+    if request.method == 'POST':
+        team.delete()
+
+        messages.success(request, 'Team Member was deleted successfully')
+        return redirect('about')
+    context= {'obj': team}
+    return render (request, 'delete.html', context)
+
 
