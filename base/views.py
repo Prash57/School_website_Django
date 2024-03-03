@@ -8,7 +8,7 @@ from django.contrib import messages
 
 def dashboard(request):
     context = {}
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dash.html', context)
 
 # homepage
 def home(request):
