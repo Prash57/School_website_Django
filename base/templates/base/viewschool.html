@@ -5,6 +5,7 @@
 
 <div class="container-xxl bg-white p-0">
     <div class="container-fluid">
+        {% if data %}
         <div class="row">
             <div class="col text-center">
                 <h2>{{ data.data_set }}</h2>
@@ -40,7 +41,13 @@
                 {% endif %}
             </div>
         </div>
-
+        {% else %}
+        <div class="row">
+            <div class="col text-center">
+                <a href="{% url 'addschool' %}">Add</a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 
