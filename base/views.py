@@ -586,7 +586,7 @@ def editNotice(request, pk):
 
 # delete notice
 def deleteNotice(request, pk):
-    notice = NoticeForm.objects.get(id=pk)
+    notice = Notice.objects.get(id=pk)
     if request.method == 'POST':
         notice.delete()
         
