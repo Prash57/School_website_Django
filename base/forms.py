@@ -28,6 +28,10 @@ class SchoolSetupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SchoolSetupForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 class SocialsForm(forms.ModelForm):
     class Meta:
         model = Socials
@@ -35,6 +39,10 @@ class SocialsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SocialsForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class AboutForm(forms.ModelForm):
@@ -45,6 +53,10 @@ class AboutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AboutForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class VisionForm(forms.ModelForm):
     class Meta:
@@ -53,6 +65,10 @@ class VisionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VisionForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class MissionForm(forms.ModelForm):
@@ -63,6 +79,10 @@ class MissionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MissionForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class MessageFromForm(forms.ModelForm):
     class Meta:
@@ -71,6 +91,10 @@ class MessageFromForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(MessageFromForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class TeamMemberForm(forms.ModelForm):
@@ -81,6 +105,10 @@ class TeamMemberForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TeamMemberForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class TestimonialForm(forms.ModelForm):
     class Meta:
@@ -89,6 +117,10 @@ class TestimonialForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TestimonialForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class CoursesForm(forms.ModelForm):
@@ -99,6 +131,10 @@ class CoursesForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CoursesForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class FaqsForm(forms.ModelForm):
     class Meta:
@@ -107,6 +143,10 @@ class FaqsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FaqsForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class BlogForm(forms.ModelForm):
@@ -117,6 +157,10 @@ class BlogForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class GalleryForm(forms.ModelForm):
     class Meta:
@@ -125,6 +169,10 @@ class GalleryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(GalleryForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class ContactForm(forms.ModelForm):
@@ -148,6 +196,10 @@ class HomeContentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HomeContentForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class PopupMessageForm(forms.ModelForm):
     class Meta:
@@ -156,6 +208,10 @@ class PopupMessageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PopupMessageForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
 
 
 class NoticeForm(forms.ModelForm):
@@ -166,6 +222,10 @@ class NoticeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(NoticeForm, self).__init__(*args, **kwargs)
 
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
+
 
 class VacancyForm(forms.ModelForm):
     class Meta:
@@ -174,3 +234,7 @@ class VacancyForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VacancyForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control border-1'})
+
