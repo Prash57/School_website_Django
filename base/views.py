@@ -3,9 +3,72 @@ from .models import *
 from django.http import HttpResponseRedirect
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
+# user login
+def loginUser(request):
+    page = 'login'
+
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
+    if request.method == 'POST':
+        username = request.POST['username'].lower()
+        password = request.POST['password']
+
+        try: 
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request, 'Invalid username')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect(request.GET['next'] if 'next' in request.GET else 'dashboard')
+        else:
+            messages.error(request, 'Invalid Username or Password')
+
+    return render(request, 'login_register.html')
+    
+
+# user logout
+def logoutUser(request):
+    logout(request)
+    messages.info(request, 'User Logged Out')
+
+    return redirect('login')
+
+# user registration
+def registerUser(request):
+    page = 'register'
+    form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+
+            messages.success(request, 'User Registred')
+
+            login(request, user)
+            return redirect('dashboard')  
+
+        else:
+            messages.error(request, 'User not registered')
+
+    context = {'page': page, 'form': form}
+    return render(request, 'login_register.html', context)
+
+# dashboard view
+@login_required(login_url = 'login')
 def dashboard(request):
     context = {}
     return render(request, 'dash.html', context)
@@ -19,11 +82,13 @@ def home(request):
     return render (request, 'index.html', context)
 
 # view school setup data
+@login_required(login_url = 'login')
 def viewSchool(request):
     context = {}
     return render(request, 'base/viewschool.html', context)
 
 # add school setup
+@login_required(login_url = 'login')
 def addSchool(request):
     school = SchoolSetup.objects.all()
     form = SchoolSetupForm()
@@ -39,6 +104,7 @@ def addSchool(request):
     return render (request, 'base/schoolform.html', context)
 
 # edit school setup
+@login_required(login_url = 'login')
 def editSchool(request, pk):
     school = SchoolSetup.objects.get(id=pk)
     form = SchoolSetupForm(instance=school)
@@ -54,6 +120,7 @@ def editSchool(request, pk):
 
 
 # delete school setup
+@login_required(login_url = 'login')
 def deleteSchool(request, pk):
     school = SchoolSetup.objects.get(id=pk)
     if request.method == 'POST':
@@ -64,11 +131,14 @@ def deleteSchool(request, pk):
     context ={'obj': school}
     return render (request, 'delete.html', context)
 
+# view socials
+@login_required(login_url = 'login')
 def viewSocials(request):
     context = {}
     return render(request, 'base/viewsocials.html', context)
 
 # add social content
+@login_required(login_url = 'login')
 def addSocial(request):
     social = Socials.objects.all()
     form = SocialsForm()
@@ -84,6 +154,7 @@ def addSocial(request):
     return render(request, 'base/socialform.html', context)
 
 # edit social content
+@login_required(login_url = 'login')
 def editSocial(request, pk):
     social = Socials.objects.get(id=pk)
     form = SocialsForm(instance=social)
@@ -98,6 +169,7 @@ def editSocial(request, pk):
     return render(request, 'base/socialform.html', context)
 
 # delete social content
+@login_required(login_url = 'login')
 def deleteSocial(request, pk):
     social = Socials.objects.get(id=pk)
     if request.method == 'POST':
@@ -108,6 +180,8 @@ def deleteSocial(request, pk):
     context ={'obj': social}
     return render (request, 'delete.html', context)
 
+# view home content
+@login_required(login_url = 'login')
 def viewHomeContent(request):
     context = {}
     if HomeContent.objects.all().exists():
@@ -116,6 +190,7 @@ def viewHomeContent(request):
     return render(request, 'base/viewhomecontent.html', context)
 
 # add home content 
+@login_required(login_url = 'login')
 def addHomeContent(request):
     home_content = HomeContent.objects.all()
     form = HomeContentForm()
@@ -131,6 +206,7 @@ def addHomeContent(request):
     return render (request, 'base/homecontentform.html', context)
 
 # edit home content 
+@login_required(login_url = 'login')
 def editHomeContent(request,pk):
     home_content = HomeContent.objects.get(id=pk)
     form = HomeContentForm(instance=home_content)
@@ -148,6 +224,7 @@ def editHomeContent(request,pk):
     return render(request, 'base/homecontentform.html', context)
 
 # delete home content
+@login_required(login_url = 'login')
 def deleteHomeContent(request,pk):
     home_content = HomeContent.objects.get(id=pk)
     if request.method == 'POST':
@@ -158,6 +235,8 @@ def deleteHomeContent(request,pk):
     context = {'obj': home_content}
     return render(request, 'delete.html', context)
 
+# view about
+@login_required(login_url = 'login')
 def viewAbout(request):
     context = {}
     if About.objects.all().exists():
@@ -174,6 +253,7 @@ def about(request):
     return render (request, 'about.html', context)
 
 # add about section
+@login_required(login_url = 'login')
 def addAbout(request):
     about = About.objects.all()
     form = AboutForm()
@@ -189,6 +269,7 @@ def addAbout(request):
     return render(request, 'base/aboutform.html', context)
 
 # edit about section
+@login_required(login_url = 'login')
 def editAbout(request, pk):
     about = About.objects.get(id=pk)
     form = AboutForm(instance=about)
@@ -204,6 +285,7 @@ def editAbout(request, pk):
 
 
 # delete about section
+@login_required(login_url = 'login')
 def deleteAbout(request,pk):
     about = About.objects.get(id=pk)
     if request.method == 'POST':
@@ -214,11 +296,14 @@ def deleteAbout(request,pk):
     context = {'obj': about}
     return render(request, 'delete.html', context)
 
+# view vision
+@login_required(login_url = 'login')
 def viewVision(request):
     context = {}
     return render(request, 'base/viewvision.html', context)
 
 # add vision section
+@login_required(login_url = 'login')
 def addVision(request):
     vision = Vision.objects.all()
     form = VisionForm()
@@ -234,6 +319,7 @@ def addVision(request):
     return render(request, 'base/visionform.html', context)
 
 # edit vision section
+@login_required(login_url = 'login')
 def editVision(request, pk):
     vision = Vision.objects.get(id=pk)
     form = VisionForm(instance=vision)
@@ -249,6 +335,7 @@ def editVision(request, pk):
 
 
 # delete vision section
+@login_required(login_url = 'login')
 def deleteVision(request,pk):
     vision = Vision.objects.get(id=pk)
     if request.method == 'POST':
@@ -259,12 +346,14 @@ def deleteVision(request,pk):
     context = {'obj': vision}
     return render(request, 'delete.html', context)
 
-
+# view mission
+@login_required(login_url = 'login')
 def viewMission(request):
     context = {}
     return render(request, 'base/viewmission.html', context)
 
 # add mission section
+@login_required(login_url = 'login')
 def addMission(request):
     mission = Mission.objects.all()
     form = MissionForm()
@@ -280,6 +369,7 @@ def addMission(request):
     return render(request, 'base/missionform.html', context)
 
 # edit mission section
+@login_required(login_url = 'login')
 def editMission(request, pk):
     mission = Mission.objects.get(id=pk)
     form = MissionForm(instance=mission)
@@ -295,6 +385,7 @@ def editMission(request, pk):
 
 
 # delete mission section
+@login_required(login_url = 'login')
 def deleteMission(request,pk):
     mission = Mission.objects.get(id=pk)
     if request.method == 'POST':
@@ -305,11 +396,14 @@ def deleteMission(request,pk):
     context = {'obj': mission}
     return render(request, 'delete.html', context)
 
+# view message from
+@login_required(login_url = 'login')
 def viewMessageFrom(request):
     context = {}
     return render(request, 'base/viewmessagefrom.html', context)
 
 # add message from section
+@login_required(login_url = 'login')
 def addMessageFrom(request):
     message = MessageFrom.objects.all()
     form = MessageFromForm()
@@ -325,6 +419,7 @@ def addMessageFrom(request):
     return render(request, 'base/messagefromform.html', context)
 
 # edit message from section
+@login_required(login_url = 'login')
 def editMessageFrom(request, pk):
     message = MessageFrom.objects.get(id=pk)
     form = MessageFromForm(instance=message)
@@ -340,6 +435,7 @@ def editMessageFrom(request, pk):
 
 
 # delete message from section
+@login_required(login_url = 'login')
 def deleteMessageFrom(request,pk):
     message = MessageFrom.objects.get(id=pk)
     if request.method == 'POST':
@@ -350,6 +446,8 @@ def deleteMessageFrom(request,pk):
     context = {'obj': message}
     return render(request, 'delete.html', context)
 
+# view blogs
+@login_required(login_url = 'login')
 def viewBlogs(request):
     blogs = Blog.objects.all()
     context = {'blogs':blogs}
@@ -362,6 +460,7 @@ def blogs(request):
     return render (request, 'blogs.html', context)
 
 # add blog
+@login_required(login_url = 'login')
 def addBlog(request):
     blog = Blog.objects.all()
     form = BlogForm()
@@ -378,6 +477,7 @@ def addBlog(request):
 
 
 # edit blog
+@login_required(login_url = 'login')
 def editBlog(request, pk):
     blog = Blog.objects.get(id=pk)
     form = BlogForm(instance=blog)
@@ -392,6 +492,7 @@ def editBlog(request, pk):
     return render(request, 'base/blogform.html', context)
 
 # delete blog
+@login_required(login_url = 'login')
 def deleteBlog(request, pk):
     blog = Blog.objects.get(id=pk)
     if request.method == 'POST':
@@ -408,6 +509,8 @@ def blogDetail(request, pk):
     context = {'blog': blogsobj}
     return render (request, 'blog_detail.html', context)
 
+# view gallery
+@login_required(login_url = 'login')
 def viewGallery(request):
     photos = Gallery.objects.all()
     context ={'photos': photos}
@@ -420,6 +523,7 @@ def gallery(request):
     return render (request, 'gallery.html', context)
 
 # add photo
+@login_required(login_url = 'login')
 def addPhoto(request):
     photo = Gallery.objects.all()
     form = GalleryForm()
@@ -434,7 +538,8 @@ def addPhoto(request):
     context = {'photo': photo, 'form': form}
     return render(request, 'base/photoform.html', context)
 
-# add photo
+# edit photo
+@login_required(login_url = 'login')
 def editPhoto(request, pk):
     photo = Gallery.objects.get(id=pk)
     form = GalleryForm(instance=photo)
@@ -449,6 +554,7 @@ def editPhoto(request, pk):
     return render(request, 'base/photoform.html', context)
 
 # delete photo
+@login_required(login_url = 'login')
 def deletePhoto(request, pk):
     photo = Gallery.objects.get(id=pk)
     if request.method == 'POST':
@@ -477,12 +583,14 @@ def contactForm(request):
     return render(request, 'contact.html', context)
 
 # viewing contacted page
+@login_required(login_url = 'login')
 def viewContacts(request):
     contacts = Contact.objects.all()
     context= {'contacts': contacts}
     return render(request, 'view_contacts.html', context)
 
 # view carrers/vacancy page
+@login_required(login_url = 'login')
 def viewCarrers(request):
     vacancys = Vacancy.objects.all()
     context = {'vacancys': vacancys}
@@ -495,6 +603,7 @@ def carrers(request):
     return render(request, 'carrers.html', context)
 
 # add vacancy
+@login_required(login_url = 'login')
 def addVacancy(request):
     vacancy = Vacancy.objects.all()
     form = VacancyForm()
@@ -510,6 +619,7 @@ def addVacancy(request):
     return render(request, 'base/vacancyform.html', context)
 
 # edit vacancy
+@login_required(login_url = 'login')
 def editVacancy(request, pk):
     vacancy = Vacancy.objects.get(id=pk)
     form = VacancyForm(instance=vacancy)
@@ -524,6 +634,7 @@ def editVacancy(request, pk):
     return render(request, 'base/vacancyform.html', context)
 
 # delete vacancy
+@login_required(login_url = 'login')
 def deleteVacancy(request, pk):
     vacancy = Vacancy.objects.get(id=pk)
     if request.method == 'POST':
@@ -542,6 +653,7 @@ def carrersDetail(request, pk):
 
 
 # view notice page
+@login_required(login_url = 'login')
 def viewNotices(request):
     notices = Notice.objects.all()
     context = {'notices': notices}
@@ -555,6 +667,7 @@ def notice(request):
     return render(request, 'notice.html', context)
 
 # add notice
+@login_required(login_url = 'login')
 def addNotice(request):
     notice = Notice.objects.all()
     form = NoticeForm()
@@ -570,6 +683,7 @@ def addNotice(request):
     return render(request, 'base/noticeform.html', context)
 
 # edit notice
+@login_required(login_url = 'login')
 def editNotice(request, pk):
     notice = Notice.objects.get(id=pk)
     form = NoticeForm(instance=notice)
@@ -585,6 +699,7 @@ def editNotice(request, pk):
 
 
 # delete notice
+@login_required(login_url = 'login')
 def deleteNotice(request, pk):
     notice = Notice.objects.get(id=pk)
     if request.method == 'POST':
@@ -596,11 +711,13 @@ def deleteNotice(request, pk):
     return render(request, 'delete.html', context)
 
 # view popup message
+@login_required(login_url = 'login')
 def viewPopupMessages(request):
     context = {}
     return render(request, 'base/viewpopupmessage.html', context)
 
 # add popup message
+@login_required(login_url = 'login')
 def addPopupMessage(request):
     popup = PopupMessage.objects.all()
     form = PopupMessageForm()
@@ -617,6 +734,7 @@ def addPopupMessage(request):
     return render (request, 'base/popupform.html', context)
 
 # edit popup message
+@login_required(login_url = 'login')
 def editPopupMessage(request, pk):
     popup = PopupMessage.objects.get(id=pk)
     form = PopupMessageForm(instance=popup)
@@ -633,6 +751,7 @@ def editPopupMessage(request, pk):
 
 
 # delete popup message
+@login_required(login_url = 'login')
 def deletePopupMessage(request, pk):
     popup = PopupMessage.objects.get(id=pk)
     if request.method == 'POST':
@@ -644,11 +763,13 @@ def deletePopupMessage(request, pk):
     return render (request, 'delete.html', context)
 
 # view faqs
+@login_required(login_url = 'login')
 def viewFaqs(request):
     context = {}
     return render (request, 'base/viewfaqs.html', context)
 
 # add faqs
+@login_required(login_url = 'login')
 def addFaq(request):
     faq = Faqs.objects.all()
     form = FaqsForm()
@@ -665,6 +786,7 @@ def addFaq(request):
 
 
 # edit faq
+@login_required(login_url = 'login')
 def editFaq(request, pk):
     faq = Faqs.objects.get(id=pk)
     form = FaqsForm(instance=faq)
@@ -679,6 +801,7 @@ def editFaq(request, pk):
     return render (request, 'base/faqform.html', context)
 
 # delete faq
+@login_required(login_url = 'login')
 def deleteFaq(request, pk):
     faq = Faqs.objects.get(id=pk)
     if request.method == 'POST':
@@ -690,11 +813,13 @@ def deleteFaq(request, pk):
     return render (request, 'delete.html', context)
 
 # view course
+@login_required(login_url = 'login')
 def viewCourses(request):
     context = {}
     return render (request, 'base/viewcourses.html', context)
 
 # add course
+@login_required(login_url = 'login')
 def addCourse(request):
     course = Courses.objects.all()
     form = CoursesForm()
@@ -711,6 +836,7 @@ def addCourse(request):
 
 
 # edit course
+@login_required(login_url = 'login')
 def editCourse(request, pk):
     course = Courses.objects.get(id=pk)
     form = CoursesForm(instance=course)
@@ -726,6 +852,7 @@ def editCourse(request, pk):
 
 
 # delete course
+@login_required(login_url = 'login')
 def deleteCourse(request, pk):
     course = Courses.objects.get(id=pk)
     if request.method == 'POST':
@@ -737,11 +864,13 @@ def deleteCourse(request, pk):
     return render (request, 'delete.html', context)
 
 # view testimonial
+@login_required(login_url = 'login')
 def viewTestimonials(request):
     context = {}
     return render (request, 'base/viewtestimonial.html', context)
 
 # add testimonial
+@login_required(login_url = 'login')
 def addTestimonial(request):
     testimonial = Testimonial.objects.all()
     form = TestimonialForm()
@@ -758,6 +887,7 @@ def addTestimonial(request):
 
 
 # edit testimonial
+@login_required(login_url = 'login')
 def editTestimonial(request, pk):
     testimonial = Testimonial.objects.get(id=pk)
     form = TestimonialForm(instance=testimonial)
@@ -774,6 +904,7 @@ def editTestimonial(request, pk):
 
 
 # delete testimonial
+@login_required(login_url = 'login')
 def deleteTestimonial(request, pk):
     testimonial = Testimonial.objects.get(id=pk)
     if request.method == 'POST':
@@ -785,11 +916,13 @@ def deleteTestimonial(request, pk):
     return render (request, 'delete.html', context)
 
 # view team member
+@login_required(login_url = 'login')
 def viewTeamMembers(request):
     context = {}
     return render (request, 'base/viewteam.html', context)
 
 # add team member
+@login_required(login_url = 'login')
 def addTeamMember(request):
     teams = TeamMember.objects.all()
     form = TeamMemberForm()
@@ -806,6 +939,7 @@ def addTeamMember(request):
 
 
 # edit team member
+@login_required(login_url = 'login')
 def editTeamMember(request, pk):
     teams = TeamMember.objects.get(id=pk)
     form = TeamMemberForm(instance=teams)
@@ -820,6 +954,7 @@ def editTeamMember(request, pk):
     return render (request, 'base/teammemberform.html', context)
 
 # delete team member
+@login_required(login_url = 'login')
 def deleteTeamMember(request, pk):
     teams = TeamMember.objects.get(id=pk)
     if request.method == 'POST':
