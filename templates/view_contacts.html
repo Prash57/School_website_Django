@@ -7,26 +7,32 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col text-center">
-                <h2>Contacted Details</h2>
+                <h2>Query List</h2>
             </div>
         </div>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Message</th>
-    </tr>
-    {% for contact in contacts %}
-    <tr>
-        <td>{{ contact.name }}</td>
-        <td>{{ contact.email }}</td>
-        <td>{{ contact.phone }}</td>
-        <td>{{ contact.message }}</td>
-    </tr>
-    {% endfor %}
-</table>
-</div>
+        <div class="container">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.address }}</td>
+                        <td>{{ contact.phone }}</td>
+                        <td>{{ contact.message }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

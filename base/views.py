@@ -572,8 +572,8 @@ def contactForm(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact = form.save(commit=False)
-            contact.save()
+            contacts = form.save(commit=False)
+            contacts.save()
 
             messages.success(request, 'Query sent successfully')
             return redirect('contact')

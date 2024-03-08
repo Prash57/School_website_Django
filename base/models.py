@@ -125,7 +125,7 @@ class Courses(models.Model):
         verbose_name_plural = "09. Courses"
 
 class Faqs(models.Model):
-    question = models.TextField()
+    question = models.CharField(max_length=255)
     answer = models.TextField()
     created_at = models.DateField(auto_now_add=True)
 
@@ -164,7 +164,7 @@ class Gallery(models.Model):
 
 class Contact(models.Model):
     name = models.CharField(max_length=255)
-    email = models.EmailField()
+    address = models.CharField(max_length=255)
     phone = models.CharField(max_length=10)
     message = models.TextField()
     created = models.DateField(auto_now_add=True)
