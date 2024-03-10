@@ -150,6 +150,7 @@ class Blog(models.Model):
         verbose_name_plural = ("11. Blogs")
         ordering = ['-created_at']
 
+
 class Gallery(models.Model):
     title = models.CharField(max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to="uploads/gallery_images/")
@@ -232,4 +233,18 @@ class Vacancy(models.Model):
     
     class Meta:
         verbose_name_plural = "17. Vacancy"
+        ordering = ['-created_at']
+
+
+class Comment(models.Model):
+    blog = models.ForeignKey(Blog,  related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.created_at)
+    
+    class Meta:
+        verbose_name_plural = ('18. Comments')
         ordering = ['-created_at']

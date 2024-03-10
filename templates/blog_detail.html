@@ -8,7 +8,8 @@
                 <h2>{{blog.title}}</h2>
                 <p class="lead">{{blog.sub_title}}</p>
                 <div>
-                    <p><b>Author: {{blog.author}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Date: {{blog.created_at}}</span></p>
+                    <p><b>Author: {{blog.author}}</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Date:
+                            {{blog.created_at}}</span></p>
 
                 </div>
             </div>
@@ -21,6 +22,31 @@
         <div class="row">
             <div class="col">
                 <p class="lead">{{blog.content}}</p>
+            </div>
+        </div>
+
+        <div class="main-comment-section">
+            {{ comments.count }} Comment{{ comments|pluralize }}
+            {% for comment in comments %}
+            <blockquote class="blockquote">
+                <p class="mb-0">{{ comment.body }}</p>
+                <footer class="blockquote-footer">By <cite title="Source Title">{{ comment.name|capfirst}}</cite>
+                </footer>
+            </blockquote>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="row mb-5">
+            <div class="col">
+                <h5>Leave a comment</h5>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ comment_form }}
+
+                    <button type="submit" class="btn btn-primary mt-3" style="float: right;">Submit</button>
+                </form>
             </div>
         </div>
     </div>

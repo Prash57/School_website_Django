@@ -504,8 +504,19 @@ def deleteBlog(request, pk):
 
 # blogs detail page
 def blogDetail(request, pk):
-    blogsobj = Blog.objects.get(id=pk)
-    context = {'blog': blogsobj}
+    blog = Blog.objects.get(id=pk)
+    comments = Comment.objects.filter(blog=blog).order_by('-id')
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            body = request.POST.get('body')
+            comment = Comment.objects.create(blog=blog, name=request.POST['name'], body=body)
+            comment.save()
+            comment_form = CommentForm()
+    else:
+        comment_form = CommentForm(initial={'blog_id': blog.id})
+    context = {'blog': blog, 'comments':comments, 'comment_form':comment_form}
     return render (request, 'blog_detail.html', context)
 
 # view gallery
