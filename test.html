@@ -1,64 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynamic Div Rendering</title>
-<style>
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .div-item {
-    width: calc(33.33% - 20px);
-    margin: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  .div-item img {
-    width: 100%;
-    height: auto;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+  <style>
+    #team {
+      padding: 60px 0;
+      text-align: center;
+      background-color: #d1d1d1;
+      color: #145889;
+    }
+
+    #team h2 {
+      position: relative;
+      padding: 0px 0px 15px;
+    }
+
+    #team p {
+      font-size: 15px;
+      font-style: italic;
+      padding: 0px;
+      margin: 25px 0px 40px;
+    }
+
+    #team h2::after {
+      content: '';
+      border-bottom: 2px solid #fff;
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      left: 0px;
+      width: 90px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    #team .member {
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      background-color: #ffffff;
+      padding: 10px;
+      border-radius: 15px 0px 15px 0px;
+      box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.4);
+    }
+
+    #team .member .member-info {
+      display: block;
+      position: absolute;
+      bottom: 0px;
+      left: -200px;
+      transition: 0.4s;
+      padding: 15px 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    #team .member:hover .member-info {
+      left: 0px;
+      right: 0px;
+    }
+
+    #team .member h4 {
+      font-weight: 700;
+      margin-bottom: 2px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    #team .member span {
+      font-style: italic;
+      display: block;
+      font-size: 13px;
+    }
+
+    #team .member .social-links {
+      margin-top: 15px;
+    }
+
+    #team .member .social-links a {
+      transition: none;
+      color: #fff;
+    }
+
+    #team .member .social-links a:hover {
+      color: #ffc107;
+    }
+
+    #team .member .social-links i {
+      font-size: 18px;
+      margin: 0 2px;
+    }
+  </style>
+  <title>Team Members</title>
 </head>
+
 <body>
-<div class="container" id="container"></div>
-<script>
-  // Sample data
-  const data = [
-    { image: 'image1.jpg', details: 'Details for image 1' },
-    { image: 'image2.jpg', details: 'Details for image 2' },
-    { image: 'image3.jpg', details: 'Details for image 3' },
-    { image: 'image4.jpg', details: 'Details for image 4' }
-  ];
 
-  // Function to dynamically render divs
-  function renderDivs(data) {
-    const container = document.getElementById('container');
-    container.innerHTML = ''; // Clear previous content
+  <section id="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <div class="member-img">
+              <img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/team/t4.jpg" class="img-fluid"
+                alt="">
+            </div>
+            <div class="member-info">
+              <h4>Emma White</h4>
+              <span>Web Designer</span>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    data.forEach((item, index) => {
-      const div = document.createElement('div');
-      div.classList.add('div-item');
-
-      if (index % 2 === 0) {
-        div.innerHTML = `
-          <img src="${item.image}" alt="Image ${index + 1}">
-          <p>${item.details}</p>
-        `;
-      } else {
-        div.innerHTML = `
-          <p>${item.details}</p>
-          <img src="${item.image}" alt="Image ${index + 1}">
-        `;
-      }
-
-      container.appendChild(div);
-    });
-  }
-
-  // Call the function with the sample data
-  renderDivs(data);
-</script>
 </body>
+
 </html>

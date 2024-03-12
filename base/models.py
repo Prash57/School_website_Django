@@ -137,7 +137,7 @@ class Faqs(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
-    sub_title = models.CharField(max_length=255)
+    sub_title = models.CharField(max_length=255, blank=True, null=True)
     author = models.CharField(max_length=255)
     content = models.TextField()
     image = models.ImageField(upload_to="uploads/blogs_images/")
