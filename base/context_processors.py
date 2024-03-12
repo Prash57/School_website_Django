@@ -38,14 +38,18 @@ def mission_data(request):
         mdata = None
         return {'mdata': mdata}
 
+# def message_data(request):
+#     if MessageFrom.objects.all().exists():
+#         message = MessageFrom.objects.all().order_by('-created_at')
+#         msgdata = message[0]
+#         return {'msgdata': msgdata}
+#     else:
+#         msgdata = None
+#         return {'msgdata': msgdata}
+    
 def message_data(request):
-    if MessageFrom.objects.all().exists():
-        message = MessageFrom.objects.all().order_by('-created_at')
-        msgdata = message[0]
-        return {'msgdata': msgdata}
-    else:
-        msgdata = None
-        return {'msgdata': msgdata}
+    msgdata = MessageFrom.objects.all()
+    return {'message_data': msgdata}
       
 def team_data(request):
     team = TeamMember.objects.all()

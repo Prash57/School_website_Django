@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Div Rendering</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .div-item {
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .div-item img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+<div class="container" id="container"></div>
+<script>
+  // Sample data
+  const data = [
+    { image: 'image1.jpg', details: 'Details for image 1' },
+    { image: 'image2.jpg', details: 'Details for image 2' },
+    { image: 'image3.jpg', details: 'Details for image 3' },
+    { image: 'image4.jpg', details: 'Details for image 4' }
+  ];
+
+  // Function to dynamically render divs
+  function renderDivs(data) {
+    const container = document.getElementById('container');
+    container.innerHTML = ''; // Clear previous content
+
+    data.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.classList.add('div-item');
+
+      if (index % 2 === 0) {
+        div.innerHTML = `
+          <img src="${item.image}" alt="Image ${index + 1}">
+          <p>${item.details}</p>
+        `;
+      } else {
+        div.innerHTML = `
+          <p>${item.details}</p>
+          <img src="${item.image}" alt="Image ${index + 1}">
+        `;
+      }
+
+      container.appendChild(div);
+    });
+  }
+
+  // Call the function with the sample data
+  renderDivs(data);
+</script>
+</body>
+</html>

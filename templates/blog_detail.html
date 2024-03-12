@@ -16,7 +16,7 @@
         </div>
         <div class="row">
             <div class="col mb-5">
-                <img src="{{blog.image.url}}" alt="">
+                <img src="{{blog.image.url}}" class="w-100" alt="">
             </div>
         </div>
         <div class="row">
@@ -24,20 +24,20 @@
                 <p class="lead">{{blog.content}}</p>
             </div>
         </div>
-
+<hr class="w-50">
         <div class="main-comment-section">
             {{ comments.count }} Comment{{ comments|pluralize }}
             {% for comment in comments %}
             <blockquote class="blockquote">
-                <p class="mb-0">{{ comment.body }}</p>
-                <footer class="blockquote-footer">By <cite title="Source Title">{{ comment.name|capfirst}}</cite>
+                <p class="mb-2">{{ comment.body }}</p>
+                <footer class="blockquote-footer">By: <cite title="Source Title">{{ comment.name|capfirst}}</cite>
                 </footer>
             </blockquote>
 
             {% endfor %}
 
         </div>
-
+<hr class="w-50">
         <div class="row mb-5">
             <div class="col">
                 <h5>Leave a comment</h5>

@@ -236,35 +236,44 @@ def deleteHomeContent(request,pk):
 
 # view about
 @login_required(login_url = 'login')
+# def viewAbout(request):
+#     context = {}
+#     if About.objects.all().exists():
+#         about = About.objects.filter()[:1].get()
+#         context = {'about': about}
+#     return render(request, 'base/viewabout.html', context)
 def viewAbout(request):
-    context = {}
-    if About.objects.all().exists():
-        about = About.objects.filter()[:1].get()
-        context = {'about': about}
+    abouts = About.objects.all()
+    context = {'abouts': abouts}
     return render(request, 'base/viewabout.html', context)
 
 # about page
+# def about(request):
+#     context = {}
+#     if About.objects.all().exists():
+#         about = About.objects.filter()[:1].get()
+#         context = {'about': about}
+#     return render (request, 'about.html', context)
+
 def about(request):
-    context = {}
-    if About.objects.all().exists():
-        about = About.objects.filter()[:1].get()
-        context = {'about': about}
-    return render (request, 'about.html', context)
+    abouts = About.objects.all()
+    context = {'abouts': abouts}
+    return render(request, 'abt.html', context)
 
 # add about section
 @login_required(login_url = 'login')
 def addAbout(request):
-    about = About.objects.all()
+    abouts = About.objects.all()
     form = AboutForm()
     if request.method == 'POST':
         form = AboutForm(request.POST, request.FILES)
         if form.is_valid():
-            about = form.save(commit=False)
-            about.save()
+            abouts = form.save(commit=False)
+            abouts.save()
 
             messages.success(request, "About content saved successfully")
             return redirect('about')
-    context = {'about': about, 'form': form}
+    context = {'abouts': abouts, 'form': form}
     return render(request, 'base/aboutform.html', context)
 
 # edit about section
@@ -595,7 +604,7 @@ def contactForm(request):
 # viewing contacted page
 @login_required(login_url = 'login')
 def viewContacts(request):
-    contacts = Contact.objects.all()
+    contacts = Contact.objects.all().order_by('-created')
     context= {'contacts': contacts}
     return render(request, 'view_contacts.html', context)
 
