@@ -95,6 +95,7 @@
     .next-btn:hover {
         background-color: #555;
     }
+   
 </style>
 
 <div class="container-xxl bg-white p-0">
@@ -124,6 +125,46 @@
                 <span class="next-btn">&gt;</span>
             </div>
         </div>
+
+        <!-- pagination -->
+        <!-- <footer>
+            <div class="row justify-content-center">
+                {% if photos.has_other_pages %}
+                <div class="pagination-container text-center">
+                    <ul class="pagination justify-content-center">
+    
+                        {% if photos.has_previous %}
+                        <li class="page-item"><a data-page="{{photos.previous_page_number}}"
+                                href="?page={{photos.previous_page_number}}" class="page-link">&laquo;</a></li>
+    
+                        <li class="page-item"><a data-page="1" href="?page=1" class="page-link">First</a></li>
+                        {% endif %}
+    
+                        {% for i in photos.paginator.page_range %}
+                        {% if photos.number == i %}
+                        <li class="page-item active"><a class="page-link">{{i}}</a></li> 
+                        {% else %}
+                        <li class="page-item"><a data-page="{{i}}" href="?page={{i}}" class="page-link">{{i}}</a></li>
+                        {% endif %}
+    
+                        {% endfor %}
+    
+                        {% if photos.has_next %}
+                        <li class="page-item"><a data-page="{{photos.paginator.num_pages}}"
+                                href="?page={{photos.paginator.num_pages}}" class="page-link">Last</a></li>
+    
+                        <li class="page-item"><a data-page="{{photos.next_page_number}}"
+                                href="?page={{photos.next_page_number}}" class="page-link">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </footer> -->
+    
+
+        <!--  -->
+
     </div>
 </div>
 
@@ -173,4 +214,5 @@
     });
 
 </script>
+
 {% endblock %}

@@ -7,6 +7,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 # user login
@@ -464,6 +465,18 @@ def viewBlogs(request):
 # blogs page
 def blogs(request):
     blogs = Blog.objects.all()
+
+    page = request.GET.get('page')
+
+    paginator = Paginator(blogs, 12)
+
+    try:
+        blogs = paginator.page(page)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+    except EmptyPage:
+        blogs = paginator.page(paginator.num_pages)
+
     context = {'blogs':blogs}
     return render (request, 'blogs.html', context)
 
@@ -538,6 +551,18 @@ def viewGallery(request):
 # gallery page
 def gallery(request):
     photos = Gallery.objects.all()
+
+    # page = request.GET.get('page')
+
+    # paginator = Paginator(photos, 3)
+
+    # try:
+    #     photos = paginator.page(page)
+    # except PageNotAnInteger:
+    #     photos = paginator.page(1)
+    # except EmptyPage:
+    #     photos = paginator.page(paginator.num_pages)
+
     context ={'photos': photos}
     return render (request, 'gallery.html', context)
 
