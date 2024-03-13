@@ -30,12 +30,12 @@
                         <div>
                             <div class="row">
                                 <div class="col-7">
-                                    <a href="{% url 'carrer' vacancy.id %}">
+                                    <a href="{% url 'carrer' vacancy.slug %}">
                                         <h5 class="card-title">{{vacancy.title}}</h5>
                                     </a>
                                 </div>
                                 <div class="col-5">
-                                    <a href="{% url 'carrer' vacancy.id %}" class="btn btn-primary">More -></a>
+                                    <a href="{% url 'carrer' vacancy.slug %}" class="btn btn-primary">More -></a>
                                 </div>
                             </div>
                             <div class="row">
@@ -44,8 +44,8 @@
                                 </div>
                             </div>
 
-                            <a href="{% url 'editvacancy' vacancy.id %}">Edit</a> ||
-                            <a href="{% url 'deletevacancy' vacancy.id %}">Delete</a>
+                            <a href="{% url 'editvacancy' vacancy.slug %}">Edit</a> ||
+                            <a href="{% url 'deletevacancy' vacancy.slug %}">Delete</a>
                         </div>
 
 

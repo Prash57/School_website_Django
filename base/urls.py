@@ -57,9 +57,9 @@ urlpatterns = [
     path('view-blogs/', views.viewBlogs, name='viewblogs'),
     path('blogs/', views.blogs, name='blogs'),
     path('add-blog/', views.addBlog, name='addblog'),
-    path('edit-blog/<str:pk>', views.editBlog, name='editblog'),
-    path('delete-blog/<str:pk>', views.deleteBlog, name='deleteblog'),
-    path('blog/<str:pk>', views.blogDetail, name='blog'),
+    path('edit-blog/<slug:slug>', views.editBlog, name='editblog'),
+    path('delete-blog/<slug:slug>', views.deleteBlog, name='deleteblog'),
+    path('blog/<slug:slug>', views.blogDetail, name='blog'),
 
     # gallery page routes 
     path('view-gallery/', views.viewGallery, name='viewgallery'),
@@ -76,9 +76,9 @@ urlpatterns = [
     path('view-carrers/', views.viewCarrers, name='viewcarrers'),
     path('carrers/', views.carrers, name='carrers'),
     path('add-vacancy/', views.addVacancy, name='addvacancy'),
-    path('edit-vacancy/<str:pk>', views.editVacancy, name='editvacancy'),
-    path('delete-vacancy/<str:pk>', views.deleteVacancy, name='deletevacancy'),
-    path('carrer/<str:pk>', views.carrersDetail, name='carrer'),
+    path('edit-vacancy/<slug:slug>', views.editVacancy, name='editvacancy'),
+    path('delete-vacancy/<slug:slug>', views.deleteVacancy, name='deletevacancy'),
+    path('carrer/<slug:slug>', views.carrersDetail, name='carrer'),
 
     # notice page routes 
     path('view-notices/', views.viewNotices, name='viewnotices'),

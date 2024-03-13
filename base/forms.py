@@ -4,7 +4,6 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
@@ -12,7 +11,8 @@ class CustomUserCreationForm(UserCreationForm):
         labels = {
             'first_name': 'Name',
         }
-
+    
+ 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
 
@@ -152,7 +152,8 @@ class FaqsForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['title', 'sub_title', 'author', 'content', 'image']
 
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
@@ -230,14 +231,21 @@ class NoticeForm(forms.ModelForm):
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['title', 'number', 'deadline', 'desc', 'status']
+   
+    deadline = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+
 
     def __init__(self, *args, **kwargs):
         super(VacancyForm, self).__init__(*args, **kwargs)
 
+
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control border-1'})
-
+            
 
 class CommentForm(forms.ModelForm):
     class Meta:

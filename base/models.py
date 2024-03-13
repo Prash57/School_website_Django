@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 # Create your models here.
 
 class SchoolSetup(models.Model):
@@ -137,6 +138,7 @@ class Faqs(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     sub_title = models.CharField(max_length=255, blank=True, null=True)
     author = models.CharField(max_length=255)
     content = models.TextField()
@@ -145,6 +147,22 @@ class Blog(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+
+            if self.slug == None:
+                slug = slugify(self.title)
+
+                has_slug = Blog.objects.filter(slug=slug).exists()
+                count = 1
+                while has_slug:
+                    count += 1
+                    slug = slugify(self.title) + '-' + str(count) 
+                    has_slug = Blog.objects.filter(slug=slug).exists()
+
+                self.slug = slug
+
+            super().save(*args, **kwargs)
     
     class Meta:
         verbose_name_plural = ("11. Blogs")
@@ -222,6 +240,7 @@ class Vacancy(models.Model):
         ('Closed', 'Closed')
     )
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     number = models.IntegerField()
     deadline = models.DateField()
     desc = models.TextField()
@@ -230,6 +249,22 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+
+            if self.slug == None:
+                slug = slugify(self.title)
+
+                has_slug = Vacancy.objects.filter(slug=slug).exists()
+                count = 1
+                while has_slug:
+                    count += 1
+                    slug = slugify(self.title) + '-' + str(count) 
+                    has_slug = Vacancy.objects.filter(slug=slug).exists()
+
+                self.slug = slug
+
+            super().save(*args, **kwargs)
     
     class Meta:
         verbose_name_plural = "17. Vacancy"

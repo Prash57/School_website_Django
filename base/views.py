@@ -499,8 +499,8 @@ def addBlog(request):
 
 # edit blog
 @login_required(login_url = 'login')
-def editBlog(request, pk):
-    blog = Blog.objects.get(id=pk)
+def editBlog(request, slug):
+    blog = Blog.objects.get(slug=slug)
     form = BlogForm(instance=blog)
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES, instance=blog)
@@ -514,8 +514,8 @@ def editBlog(request, pk):
 
 # delete blog
 @login_required(login_url = 'login')
-def deleteBlog(request, pk):
-    blog = Blog.objects.get(id=pk)
+def deleteBlog(request, slug):
+    blog = Blog.objects.get(slug=slug)
     if request.method == 'POST':
         blog.delete()
 
@@ -525,8 +525,8 @@ def deleteBlog(request, pk):
     return render(request, 'delete.html', context)
 
 # blogs detail page
-def blogDetail(request, pk):
-    blog = Blog.objects.get(id=pk)
+def blogDetail(request, slug):
+    blog = Blog.objects.get(slug=slug)
     comments = Comment.objects.filter(blog=blog).order_by('-id')
 
     if request.method == 'POST':
@@ -664,8 +664,8 @@ def addVacancy(request):
 
 # edit vacancy
 @login_required(login_url = 'login')
-def editVacancy(request, pk):
-    vacancy = Vacancy.objects.get(id=pk)
+def editVacancy(request, slug):
+    vacancy = Vacancy.objects.get(slug=slug)
     form = VacancyForm(instance=vacancy)
     if request.method == 'POST':
         form = VacancyForm(request.POST, request.FILES, instance=vacancy)
@@ -679,8 +679,8 @@ def editVacancy(request, pk):
 
 # delete vacancy
 @login_required(login_url = 'login')
-def deleteVacancy(request, pk):
-    vacancy = Vacancy.objects.get(id=pk)
+def deleteVacancy(request, slug):
+    vacancy = Vacancy.objects.get(slug=slug)
     if request.method == 'POST':
         vacancy.delete()
 
@@ -690,8 +690,8 @@ def deleteVacancy(request, pk):
     return render (request, 'delete.html', context)
 
 # carrers/vacancy detail page
-def carrersDetail(request, pk):
-    vacancy = Vacancy.objects.get(id=pk)
+def carrersDetail(request, slug):
+    vacancy = Vacancy.objects.get(slug=slug)
     context = {'vacancy': vacancy}
     return render(request, 'carrers_detail.html', context)
 

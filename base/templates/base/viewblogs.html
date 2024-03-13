@@ -29,13 +29,13 @@
                             <a href="{% url 'blog' blog.id %}">
                                 <h5 class="card-title">{{blog.title}}</h5>
                             </a>
-                            <a href="{% url 'editblog' blog.id %}">Edit</a>
-                            <a href="{% url 'deleteblog' blog.id %}">Delete</a>
+                            <a href="{% url 'editblog' blog.slug %}">Edit</a>
+                            <a href="{% url 'deleteblog' blog.slug %}">Delete</a>
                         </div>
 
                         <b>{{blog.author}}</b>
                         <!-- <p class="card-text">{{blog.content | slice:"150"}}</p> -->
-                        <a href="{% url 'blog' blog.id %}" class="btn btn-primary">More -></a>
+                        <a href="{% url 'blog' blog.slug %}" class="btn btn-primary">More -></a>
                     </div>
                 </div>
             </div>

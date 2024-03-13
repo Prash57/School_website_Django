@@ -19,7 +19,7 @@
                             <div class=" card-body">
                             <div class="row align-items-end">
                                 <div class="col">
-                                    <a href="{% url 'carrer' vacancy.id %}">
+                                    <a href="{% url 'carrer' vacancy.slug %}">
                                         <h5 class="card-title"> Post: {{vacancy.title}}</h5>
                                     </a>
                                 </div>
@@ -33,7 +33,7 @@
                             </p>
                             <b class="card-text"> Description:</b>
                             <p> {{vacancy.desc}}</p>
-                            <a href="{% url 'carrer' vacancy.id %}" class="btn btn-primary">Readmore...</a>
+                            <a href="{% url 'carrer' vacancy.slug %}" class="btn btn-primary">Readmore...</a>
                         </div>
                     </div>
                     <hr>
