@@ -20,7 +20,7 @@
                             <div class="row align-items-end">
                                 <div class="col">
                                     <a href="{% url 'carrer' vacancy.slug %}">
-                                        <h5 class="card-title"> Post: {{vacancy.title}}</h5>
+                                        <h5 class="card-title"> Post: {{vacancy.title |capfirst }}</h5>
                                     </a>
                                 </div>
                                 <div class="col text-end">
@@ -32,7 +32,7 @@
                                 {{vacancy.deadline}}
                             </p>
                             <b class="card-text"> Description:</b>
-                            <p> {{vacancy.desc}}</p>
+                            <p> {{vacancy.desc |capfirst }}</p>
                             <a href="{% url 'carrer' vacancy.slug %}" class="btn btn-primary">Readmore...</a>
                         </div>
                     </div>

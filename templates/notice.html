@@ -50,11 +50,11 @@
                     <div class="row g-0"  style="background: rgb(240, 240, 240);">
                         <div class="col"">
                             <div class="card-body">
-                                <h5 class="card-title">{{ notice.title }}</h5>
+                                <h5 class="card-title">{{ notice.title |capfirst }}</h5>
                                 <p class="card-text"><small class="text-body-secondary"><b>Date:</b>
                                         {{notice.created_at}}</small>
                                 </p>
-                                <p class="card-text">{{ notice.body }}</p>
+                                <p class="card-text">{{ notice.body |capfirst }}</p>
 
                             </div>
 

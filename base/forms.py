@@ -3,6 +3,8 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -49,6 +51,9 @@ class AboutForm(forms.ModelForm):
     class Meta:
         model = About
         fields = '__all__'
+        widgets = {
+            'about_content': SummernoteWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(AboutForm, self).__init__(*args, **kwargs)
@@ -88,6 +93,10 @@ class MessageFromForm(forms.ModelForm):
     class Meta:
         model = MessageFrom
         fields = '__all__'
+
+        widgets = {
+            'message': SummernoteWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(MessageFromForm, self).__init__(*args, **kwargs)
@@ -140,6 +149,9 @@ class FaqsForm(forms.ModelForm):
     class Meta:
         model = Faqs
         fields = '__all__'
+        widgets = {
+            'answer': SummernoteWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(FaqsForm, self).__init__(*args, **kwargs)
@@ -154,6 +166,9 @@ class BlogForm(forms.ModelForm):
         model = Blog
         # fields = '__all__'
         fields = ['title', 'sub_title', 'author', 'content', 'image']
+        widgets = {
+            'content': SummernoteWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(BlogForm, self).__init__(*args, **kwargs)
@@ -206,6 +221,9 @@ class PopupMessageForm(forms.ModelForm):
     class Meta:
         model = PopupMessage
         fields = '__all__'
+        widgets = {
+            'body': SummernoteWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(PopupMessageForm, self).__init__(*args, **kwargs)
@@ -219,6 +237,9 @@ class NoticeForm(forms.ModelForm):
     class Meta:
         model = Notice
         fields = '__all__'
+        widgets = {
+            'body': SummernoteWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(NoticeForm, self).__init__(*args, **kwargs)
@@ -233,12 +254,15 @@ class VacancyForm(forms.ModelForm):
         model = Vacancy
         # fields = '__all__'
         fields = ['title', 'number', 'deadline', 'desc', 'status']
+        widgets = {
+            'desc': SummernoteWidget(),
+        }
    
     deadline = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'})
     )
 
-
+   
     def __init__(self, *args, **kwargs):
         super(VacancyForm, self).__init__(*args, **kwargs)
 

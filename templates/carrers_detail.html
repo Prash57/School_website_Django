@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-5">
             <div class="col text-center">
-                <h2>{{vacancy.title}}</h2>
+                <h2>{{vacancy.title |capfirst }}</h2>
                 {% if vacancy.status == 'Open' %}
                 <div class="col">
                     <a href="mailto:{{data.email}}" class="btn btn-primary">Apply</a>
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-8">
                             <p>Description: </p>
-                            <p>{{vacancy.desc}}</p>
+                            <p>{{vacancy.desc |capfirst }}</p>
                         </div>
                     </div>
 

@@ -70,14 +70,14 @@
     #team .member h4 {
         font-weight: 700;
         margin-bottom: 2px;
-        font-size: 18px;
+        font-size: 24px;
         color: #fff;
     }
 
     #team .member span {
         font-style: italic;
         display: block;
-        font-size: 13px;
+        font-size: 18px;
     }
 
     #team .member .social-links {
@@ -111,7 +111,7 @@
                             <div class="h-100 d-flex flex-column justify-content-center p-5">
                                 <h1 class="mb-4">{{ about.about_title }}</h1>
                                 <p class="mb-4 lead">{{ about.about_subtitle }}</p>
-                                <p class="mb-4">{{ about.about_content }}</p>
+                                <p class="mb-4">{{ about.about_content| safe }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 about-img wow fadeInUp" data-wow-delay="0.5s">
@@ -139,7 +139,7 @@
                             <div class="h-100 d-flex flex-column justify-content-center p-5">
                                 <h1 class="mb-4">{{ about.about_title }}</h1>
                                 <p class="mb-4 lead">{{ about.about_subtitle }}</p>
-                                <p class="mb-4">{{ about.about_content }}</p>
+                                <p class="mb-4">{{ about.about_content| safe }}</p>
                             </div>
                         </div>
                         {% endif %}
@@ -167,7 +167,7 @@
                         <div class="h-100 d-flex flex-column justify-content-center p-5">
                             <h1 class="mb-4">{{ msgdata.name }}</h1>
                             <p class="mb-4 lead">{{ msgdata.position }}</p>
-                            <p class="mb-4">{{ msgdata.message }}</p>
+                            <p class="mb-4">{{ msgdata.message| safe }}</p>
                         </div>
                     </div>
                     {% else %}
@@ -175,7 +175,7 @@
                         <div class="h-100 d-flex flex-column justify-content-center p-5">
                             <h1 class="mb-4">{{ msgdata.name }}</h1>
                             <p class="mb-4 lead">{{ msgdata.position }}</p>
-                            <p class="mb-4">{{ msgdata.message }}</p>
+                            <p class="mb-4">{{ msgdata.message| safe }}</p>
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
@@ -216,10 +216,8 @@
                                     <span>{{ member.position }}</span>
                                     <div class="social-links">
                                         <a href="{{ member.facebook }}"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="{{ member.twitter }}"><i class="fab fa-twitter"></i></a>
-                                        <a href="{{ member.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
-                                        <a href="{{ member.pinterest }}"><i class="fab fa-pinterest-p"></i></a>
                                         <a href="{{ member.instagram }}"><i class="fab fa-instagram"></i></a>
+                                        <a href="{{ member.linkedin }}"><i class="fab fa-linkedin-in"></i></a>
                                     </div>
                                 </div>
                             </div>

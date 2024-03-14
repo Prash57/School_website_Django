@@ -2,7 +2,6 @@
 {% load static %}
 {% block content %}
 
-
 <div class="container-xxl bg-white p-0">
     <div class="container-fluid">
         <div class="row mb-5">
@@ -29,4 +28,11 @@
         </div>
     </div>
 </div>
+<script>
+    $('#summernote').summernote({
+      placeholder: 'Hello Bootstrap 4',
+      tabsize: 2,
+      height: 100
+    });
+  </script>
 {% endblock %}

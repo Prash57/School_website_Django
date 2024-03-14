@@ -5,15 +5,15 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col text-center mt-3">
-                <h2>{{blog.title}}</h2>
+                <h2>{{blog.title |capfirst }}</h2>
                 {% if blog.sub_title %}
-                <p class="lead">{{blog.sub_title}}</p>
+                <p class="lead">{{blog.sub_title |capfirst }}</p>
                 {% endif %}
             </div>
             <div>
                 <a href="{% url 'blogs' %}" class="btn btn-primary">Back</a>
 
-                <p><b>Author: </b><span> {{blog.author}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b>
+                <p><b>Author: </b><span> {{blog.author |capfirst }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b>
                     <span>{{blog.created_at}}</span>
                 </p>
             </div>
@@ -28,11 +28,11 @@
 
             <div class="col-10">
                 <div>
-                    <p><b>Author: </b><span> {{blog.author}}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b>
+                    <p><b>Author: </b><span> {{blog.author |capfirst }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Date:</b>
                         <span>{{blog.created_at}}</span>
                     </p>
                 </div>
-                <p class="lead">{{blog.content}}</p>
+                <p class="lead">{{blog.content|safe}}</p>
             </div>
         </div>
         <hr>
