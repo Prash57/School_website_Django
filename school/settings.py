@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8v14rv(upu&t&we4+r3h10_0tg_k^y1bey5$fd4+l0=+8d*rtt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '*']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '*', 'http://127.0.0.1:8000/']
 
 
 # Application definition
@@ -161,3 +161,12 @@ SUMMERNOTE_CONFIG = {
     
     'attachment_filesize_limit': 20 * 1024 * 1024, # specify the file size
 }
+
+# for email sending (password resetting and all)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'prashantadk08@gmail.com'
+EMAIL_HOST_PASSWORD = 'fgbk xwhk udzy yfav'

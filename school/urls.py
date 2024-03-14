@@ -19,11 +19,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.static import serve
 from django.urls import re_path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('base.urls')),
     path('summernote/', include('django_summernote.urls')),
+
+    path('reset_password/', auth_views.PasswordResetView.as_view(
+        template_name="reset_password.html"), name='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(
+        template_name="reset_password_sent.html"), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name="reset.html"), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(
+        template_name="reset_password_complete.html"), name='password_reset_complete'),
 
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
