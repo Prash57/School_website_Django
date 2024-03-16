@@ -161,7 +161,7 @@ SUMMERNOTE_CONFIG = {
     
     'attachment_filesize_limit': 20 * 1024 * 1024, # specify the file size
 }
-
+SUMMERNOTE_THEME = 'bs5'
 # for email sending (password resetting and all)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
