@@ -1,6 +1,13 @@
 from .models import *
 from django.template.context_processors import request
 
+def blog_data(request):
+    blogs = Blog.objects.all()
+    return {'blogdata': blogs}
+
+def calendar_data(request):
+    calendars = Calendar.objects.all().order_by('-is_default')
+    return {'calendardata': calendars}
 
 def custom_data(request):
     if SchoolSetup.objects.all().exists():

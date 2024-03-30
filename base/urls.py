@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import custom_404_view
 
 urlpatterns = [
     # login routes
@@ -121,3 +122,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
 
 ]
+
+handler404 = custom_404_view

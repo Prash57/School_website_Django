@@ -5,7 +5,7 @@ from .models import *
 
 admin.site.register(SchoolSetup)
 admin.site.register(Socials)
-# admin.site.register(About)
+admin.site.register(Calendar)
 # admin.site.register(Vision)
 # admin.site.register(Mission)
 # admin.site.register(MessageFrom)

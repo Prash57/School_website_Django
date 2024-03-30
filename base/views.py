@@ -10,6 +10,10 @@ from .forms import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
+# custom 404 page
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
 # user login
 def loginUser(request):
     page = 'login'

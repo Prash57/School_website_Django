@@ -76,6 +76,8 @@ TEMPLATES = [
                 'base.context_processors.testimonial',
                 'base.context_processors.popup',
                 'base.context_processors.social_data',
+                'base.context_processors.calendar_data',
+                'base.context_processors.blog_data',
             ],
         },
     },
@@ -130,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -170,3 +172,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'prashantadk08@gmail.com'
 EMAIL_HOST_PASSWORD = 'fgbk xwhk udzy yfav'
+
+
+handler404 = 'base.views.custom_404_view'
